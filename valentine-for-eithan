@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eithan 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+    overflow: hidden;
+    color: #ff4757;
+}
+
+.container {
+    position: relative;
+    top: 25vh;
+}
+
+h1 {
+    font-size: 2.2rem;
+    padding: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: #ff6b6b;
+    color: white;
+    transition: 0.3s;
+    position: relative;
+}
+
+button:hover {
+    background-color: #ff8787;
+    transform: scale(1.1);
+}
+
+#noBtn {
+    position: absolute;
+}
+
+.floating {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 12s infinite linear;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="question">Eithan… do you like me? 💖</h1>
+    <div id="buttons">
+        <button onclick="nextStage()">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+</div>
+
+<audio id="bgMusic" src="YOUR_MP3_LINK_HERE" loop></audio>
+
+<script>
+let stage = 1;
+let love = 100;
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+function nextStage() {
+    if (stage === 1) {
+        document.getElementById("question").innerText =
+        "Eithan, how much do you love me? 💕";
+
+        document.getElementById("buttons").innerHTML =
+        '<button onclick="increaseLove()">This much! <span id="percent">100%</span></button><br><button onclick="finalQuestion()">Next ❤️</button>';
+
+        stage = 2;
+    }
+}
+
+function increaseLove() {
+    love *= 2;
+    document.getElementById("percent").innerText = love + "%";
+}
+
+function finalQuestion() {
+    document.getElementById("question").innerText =
+    "Eithan… will you be my Valentine? 💝";
+
+    document.getElementById("buttons").innerHTML =
+    '<button onclick="celebrate()">YES!</button><button id="noBtn2">No</button>';
+
+    const noBtn2 = document.getElementById("noBtn2");
+
+    noBtn2.addEventListener("mouseover", () => {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn2.style.position = "absolute";
+        noBtn2.style.left = x + "px";
+        noBtn2.style.top = y + "px";
+    });
+
+    stage = 3;
+}
+
+function celebrate() {
+    document.getElementById("bgMusic").play();
+
+    document.body.innerHTML =
+    "<h1>YAYYY EITHAN 💖</h1><p>I'm the luckiest person alive 🥰</p><h2>🎁💖🤗💝💋❤️💕</h2>";
+
+    for(let i=0;i<100;i++){
+        const heart = document.createElement("div");
+        heart.className = "floating";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random()*100+"vw";
+        document.body.appendChild(heart);
+    }
+}
+
+// Floating hearts background
+setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.className = "floating";
+    heart.innerText = ["❤️","💖","💝","💗","🧸"][Math.floor(Math.random()*5)];
+    heart.style.left = Math.random()*100+"vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),12000);
+},600);
+
+</script>
+
+</body>
+</html>
