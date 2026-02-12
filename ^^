@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eithan, Will You Be My Valentine? 💝</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+    overflow: hidden;
+    color: #ff4757;
+}
+
+.container {
+    position: relative;
+    top: 30vh;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: #ff6b6b;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff8787;
+    transform: scale(1.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.floating {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 15s infinite linear;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(100vh) translateX(0);
+    }
+    to {
+        transform: translateY(-10vh) translateX(50px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="question">Eithan… do you like me? 💖</h1>
+    <div id="buttons">
+        <button onclick="answerYes()">Yes</button>
+        <button onclick="answerNo()">No</button>
+    </div>
+    <p id="message"></p>
+</div>
+
+<!-- REPLACE the src with your own hosted MP3 link -->
+<audio id="bgMusic" src="YOUR_MP3_LINK_HERE" loop></audio>
+
+<button onclick="toggleMusic()" style="position:fixed;bottom:20px;right:20px;">
+🎵 Play Music
+</button>
+
+<script>
+let stage = 1;
+let love = 100;
+
+function answerYes() {
+    if (stage === 1) {
+        document.getElementById("question").innerText = "Eithan, how much do you love me? 💕";
+        document.getElementById("buttons").innerHTML =
+            '<button onclick="increaseLove()">This much! <span id="percent">100%</span></button><br><button onclick="nextStage()">Next ❤️</button>';
+        stage = 2;
+    } else if (stage === 3) {
+        celebrate();
+    }
+}
+
+function answerNo() {
+    if (stage === 1) {
+        document.getElementById("message").innerText = "You may like me… but I LOVE you, Eithan! ❤️";
+    } else if (stage === 3) {
+        alert("Wrong answer Eithan 😜 Try again!");
+    }
+}
+
+function increaseLove() {
+    love *= 2;
+    document.getElementById("percent").innerText = love + "%";
+}
+
+function nextStage() {
+    document.getElementById("question").innerText = "Eithan… will you be my Valentine? 💝";
+    document.getElementById("buttons").innerHTML =
+        '<button onclick="answerYes()">Yes!</button><button onclick="answerNo()">No</button>';
+    stage = 3;
+}
+
+function celebrate() {
+    document.body.innerHTML =
+        "<h1>Yay! I'm the luckiest person to have you, Eithan 💖</h1><p>Now come get your gift... 🎁</p><h2>🎁💖🤗💝💋❤️💕</h2>";
+}
+
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+// Floating hearts
+const emojis = ['❤️','💖','💝','💗','💓','🧸','🐻'];
+
+setInterval(() => {
+    const el = document.createElement("div");
+    el.className = "floating";
+    el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(el);
+
+    setTimeout(() => {
+        el.remove();
+    }, 15000);
+}, 500);
+</script>
+
+</body>
+</html>
